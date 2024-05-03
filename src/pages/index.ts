@@ -1,0 +1,5 @@
+export {Home} from './Home'
+export {Popular} from './Popular'
+export {TopRated} from './TopRated'
+export {Favorites} from './Favorites'
+export {NowPlaying} from './NowPlaying'
