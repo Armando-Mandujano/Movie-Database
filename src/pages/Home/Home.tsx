@@ -1,60 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import MovieCard from '../../components/MovieCard/MovieCard';
-import { getPopularMovies } from '../../services';
-import Slider from "react-slick";  // Importa el componente Slider
-import { IMovieCard } from '../../components/MovieCard/types'; // Asegúrate de importar el tipo definido
+import { getPopularMovies, getTopRatedMovies, getNowPlayingMovies } from '../../services';
+import Carousel from '../../components/Carousel/Carousel'
 
-const Home = () => {
-  const [movies,setMovies]=useState<any[]>([]);
-  const [loading,setLoading]=useState<boolean>(false);
-  const [errorMovies,setErrorMovies]=useState<boolean>(false);
+const Home: React.FC = () => {
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
 
-  const getPopular = async () => {
-    setLoading(true);
-    await getPopularMovies()
-      .then((res) => {
-        if (res && res.data) {
-          console.log(res.data, "res");
-          setMovies(res.data.results);
-        }
-      })
-      .catch((err) => {
-        console.log(err, "err");
-        setErrorMovies(true);
-      });
-    setLoading(false);
+  const getData = async () => {
+    const popular = await getPopularMovies();
+    const topRated = await getTopRatedMovies();
+    const nowPlaying = await getNowPlayingMovies();
+    setPopularMovies(popular.results);
+    setTopRatedMovies(topRated.results);
+    setNowPlayingMovies(nowPlaying.results);
   };
 
-  useEffect(()=>{
-    setLoading(true);
-    getPopular();
-  },[]);
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div>
-      <br></br>
-      <div className='text-4xl font-semibold align-text-bottom'>
-        <h1>POPULAR</h1>
-      </div>
-      <div className="movies-container">
-        {loading && <div>Loading...</div>}
-        {errorMovies && <div>Error...</div>}
-        {movies?.length > 0 && 
-          movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movieId={movie.id}
-              posterPath={movie.poster_path}
-              title={movie.title}
-              voteAverage={movie.vote_average}
-              genreId={movie.genre_ids[0]}
-            />
-          ))
-        }
-      </div>
+      <div className="text--size">Popular Movies</div>
+      <Carousel movies={popularMovies} />
+      <h1 className="text--size">Top Rated Movies</h1>
+      <Carousel movies={topRatedMovies} />
+      <h1 className="text--size">Now Playing Movies</h1>
+      <Carousel movies={nowPlayingMovies} />
     </div>
   );
-  
-}
+};
 
-export default Home
+export default Home;
