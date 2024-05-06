@@ -28,10 +28,6 @@ const TopRated = () => {
     setLoading(true);
     getTopRated();
   },[]);
-  useEffect(()=>{
-    setLoading(true);
-    getTopRated();
-  },[]);
 
   return (
     <div>

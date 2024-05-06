@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { getDetails } from "../../services/movies/getDetails";
+import Carousel from "../../components/Carousel/Carousel";
+import { getRecommendationsMovies } from '../../services';
+import MovieCard from "../../components/MovieCard/MovieCard";
+import Pill from "../../components/Pill/Pill";
 
 const Show = () => {
   const { id } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [show, setShow] = useState<any>([]);
@@ -13,6 +16,8 @@ const Show = () => {
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<string>(""); 
+
+  const [movies, setMovies] = useState<any[]>([]);
 
   const goBack = () => {
     navigate(-1);
@@ -48,6 +53,21 @@ const Show = () => {
     setLoading(false);
   };
 
+  const getRecommendations = async () => {
+    setLoading(true);
+    await getRecommendationsMovies(String(id))
+      .then((res) => {
+        if (res && res.data) {
+          console.log(res.data, "res");
+          setMovies(res.data.results);
+        }
+      })
+      .catch((err) => {
+        console.log(err, "err");
+      });
+    setLoading(false);
+  };
+
   useEffect(() => {
     const favs = localStorage.getItem("favorites") || "";
     setFavorites(favs);
@@ -56,36 +76,69 @@ const Show = () => {
     }
     setLoading(true);
     getMovieDetail();
-  }, []);
+    getRecommendations();
+    setIsFavorite(favs.includes(String(id)));
+  }, [id]);
 
   return (
-    <div>
-      {loading ? (
-        <span>loading...</span>
-      ) : (
-        <>
-          <div>Show: {id}</div>
-          <div>Título desde el state: {location.state.movie}</div>
-          <div>Título desde servicio: {show.title}</div>
-          <div>Para adultos desde servicio: {show.adult ? "Yes" : "No"}</div>
-          <button onClick={goBack}>Ir atrás</button>
-          {isFavorite ? (
-            <div>
-              <button className="p4 bg-blue-500" onClick={removeFavorite}>
+    <div className="flex flex-col">
+      <div className="flex flex-row justify-between">
+        <div className="w-1/3">
+          {show.poster_path && (
+            <MovieCard 
+              key={show.id}
+              movieId={show.id}
+              posterPath={show.poster_path}
+              title={show.title}
+              voteAverage={show.vote_average}
+              genreId={show.genres && show.genres.length > 0 ? show.genres[0].id : undefined}
+            />
+          )}
+        </div>
+        <div className="w-2/3 p-4">
+          <div className="text-xl font-bold mb-2">{show.title || 'Loading...'}</div>
+          <div className="text-sm">{show.tagline || 'No tagline available'}</div>
+          <div className="text-sm mb-4">{show.overview || 'No overview available'}</div>
+          <div>
+            <strong>Genres:</strong>
+            {show.genres ? show.genres.map((genre: { id: React.Key | null | undefined; name: string; }) => (
+              <Pill key={genre.id} title={genre.name} color="green" />
+            )) : <span>Loading genres...</span>}
+          </div>
+          <div>
+            <strong>Release Date:</strong> {show.release_date ? new Date(show.release_date).toLocaleDateString() : 'Loading...'}
+          </div>
+          <div>
+            <strong>Runtime:</strong> {show.runtime ? `${show.runtime} minutes` : 'Loading...'}
+          </div>
+          <div>
+            <strong>Status:</strong> {show.status || 'Loading...'}
+          </div>
+          <div>
+            <strong>Vote Average:</strong> {show.vote_average ? show.vote_average : 'Loading...'}
+          </div>
+          <div className="mt-4">
+            {isFavorite ? (
+              <button className="bg-red-500 text-white p-2 rounded" onClick={removeFavorite}>
                 Remove from favorites
               </button>
-            </div>
-          ) : (
-            <div>
-              <button className="p4 bg-red-500" onClick={addFavorite}>
+            ) : (
+              <button className="bg-blue-500 text-white p-2 rounded" onClick={addFavorite}>
                 Add to favorites
               </button>
-            </div>
-          )}
-        </>
-      )}
+            )}
+            <br></br>
+            <button onClick={goBack}>Go Back</button>
+          </div>
+        </div>
+      </div>
+      <div className="w-full mt-8">
+        <h2 className="text-xl font-bold mb-2">Recommendations</h2>
+        <Carousel movies={movies} />
+      </div>
     </div>
   );
+  
 };
 
 export default Show;

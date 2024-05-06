@@ -10,6 +10,7 @@ import {faStar } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/constants";
 
+
 const MovieCard: React.FC<IMovieCard> = ({
     title,
     genreId,

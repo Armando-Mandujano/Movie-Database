@@ -10,8 +10,8 @@ const Favorites = () => {
 
   const runGetFavorites = async () => {
     if (favorites.length) {
-      // favorites.length > 0
-      const favoritesArray = JSON.parse(favorites); // ["213123", "123123"]
+
+      const favoritesArray = JSON.parse(favorites); 
       const newShows = await Promise.all(
         favoritesArray.map(async (favoriteId: string) => {
           return getDetails(favoriteId)
@@ -40,11 +40,11 @@ const Favorites = () => {
     <div>
       {!loading ? (
         <div>
-          <h2>My Favorites</h2>
+          <h2 className='text-4xl font-semibold text-center align-text-bottom'>My Favorites</h2>
           {favorites && favorites.length > 0 ? (
             <div>
               {shows && shows.length > 0 ? (
-                <div className='movies-container'>
+                <div className='movies-container'> 
                   {shows.map((show: IMovieDetail) => (
                     <MovieCard
                       key={show.id}

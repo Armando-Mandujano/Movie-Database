@@ -1,70 +1,45 @@
 .movie-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 7px;
-    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    max-width: 300px; 
-    margin: 20px auto; 
-  }
-  
-  .show-thumb {
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s ease-in-out;
-    display: block;
-  }
-  
-  .movie-card:hover .show-thumb {
-    transform: scale(1.1);
-  }
-  
-  .info-show {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-.show-title {
-    padding: 15px 10px;
-    display: table-cell;
-    width: 100%;
-    vertical-align: middle;
-    color: #fff;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  max-width: 300px; 
+  margin: 20px; 
+  transition: transform 0.3s ease-in-out;
 }
-.show-label {
-    background: #f44;
-    color: #fff;
-    padding: 6px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 13px;
-    margin: 0 0 5px;
-    display: table;
-    transition: all .3s;
-    border-radius: 5px;
+
+.movie-card:hover {
+  transform: scale(1.05);
 }
+
+.show-thumb {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+}
+
+.info-show {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+  transition: all 0.3s;
+}
+
+
 .show-label-title {
-    text-shadow: none;
-    color: #fff;
-    display: block;
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 17px;
-    margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
-.show-calfication {
-    margin-right: 10px;
-    text-shadow: none;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 500;
-    display: table;
-    text-transform: uppercase;
-    line-height: 4px;
+
+.show-calcification {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
 }
