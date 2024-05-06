@@ -37,42 +37,36 @@ const Favorites = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col h-screen">
+      <h2 className='text-4xl font-semibold text-center mt-8 mb-4'>My Favorites</h2>
       {!loading ? (
-        <div>
-          <h2 className='text-4xl font-semibold text-center align-text-bottom'>My Favorites</h2>
-          {favorites && favorites.length > 0 ? (
-            <div>
-              {shows && shows.length > 0 ? (
-                <div className='movies-container'> 
-                  {shows.map((show: IMovieDetail) => (
-                    <MovieCard
-                      key={show.id}
-                      movieId={show.id}
-                      title={show.title}
-                      genreId={show.genres[0].id}
-                      voteAverage={show.vote_average}
-                      posterPath={show.poster_path}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div>Error fetching movies...</div>
-              )}
+        shows.length > 0 ? (
+          <div className='movies-container flex flex-wrap justify-center'>
+            {shows.map((show: IMovieDetail) => (
+              <MovieCard
+                key={show.id}
+                movieId={show.id}
+                title={show.title}
+                genreId={show.genres[0].id}
+                voteAverage={show.vote_average}
+                posterPath={show.poster_path}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex-grow flex justify-center items-center">
+            <div className='text-4xl font-semibold text-center'>
+              Oops, it seems that you don't have any favorite movie yet...
             </div>
-          ) : (
-            <div>
-              <h3>Oops, it seems that you don't any favorite movie yet...</h3>
-            </div>
-          )}
-        </div>
+          </div>
+        )
       ) : (
-        <div>
+        <div className="flex-grow flex justify-center items-center">
           <h2>Loading...</h2>
         </div>
       )}
     </div>
-  );
+  );  
 };
 
 export default Favorites;
