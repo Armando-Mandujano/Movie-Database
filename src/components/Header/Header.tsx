@@ -7,6 +7,7 @@ const ROUTES = {
   TOPRATED: "/top-rated",
   NOW_PLAYING: '/now-playing',
   FAVORITES: '/favorites',
+  UPCOMING:'/upcoming'
 };
 
 const Header: React.FC = () => {
@@ -28,8 +29,12 @@ const Header: React.FC = () => {
             <Link to={ROUTES.NOW_PLAYING} className="hover:text-gray-300 transition-colors duration-300">NOW PLAYING</Link>
           </li>
           <li>
+            <Link to={ROUTES.UPCOMING} className="hover:text-gray-300 transition-colors duration-300">UPCOMING</Link>
+          </li>
+          <li>
             <Link to={ROUTES.FAVORITES} className="hover:text-gray-300 transition-colors duration-300">MY FAVORITES</Link>
           </li>
+
         </ul>
       </div>
     </nav>

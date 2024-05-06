@@ -5,5 +5,6 @@ export const ROUTES = {
     TOP_RATED:'/top-rated',
     NOW_PLAYING:'/now-playing',
     FAVORITES:'/favorites',
+    UPCOMING:'/upcoming'
 
 }
