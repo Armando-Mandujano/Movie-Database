@@ -1,16 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../store/app-context/app-context';
+import {ROUTES} from "../../routes/constants"
 
-const ROUTES = {
-  HOME: "/",
-  POPULAR: "/popular",
-  TOPRATED: "/top-rated",
-  NOW_PLAYING: '/now-playing',
-  FAVORITES: '/favorites',
-  UPCOMING:'/upcoming'
-};
+
 
 const Header: React.FC = () => {
+  const { logOut } = useAppContext();
+  const navigate = useNavigate();
+  const [isMenuOpen,setIsMenuOpen]= useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate(ROUTES.LOGIN);
+    } catch (e) {
+      console.log("error logout");
+    }
+  };
+
   return (
     <nav className="bg-black text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -23,7 +36,7 @@ const Header: React.FC = () => {
             <Link to={ROUTES.POPULAR} className="hover:text-gray-300 transition-colors duration-300">POPULAR</Link>
           </li>
           <li>
-            <Link to={ROUTES.TOPRATED} className="hover:text-gray-300 transition-colors duration-300">TOP RATED</Link>
+            <Link to={ROUTES.TOP_RATED} className="hover:text-gray-300 transition-colors duration-300">TOP RATED</Link>
           </li>
           <li>
             <Link to={ROUTES.NOW_PLAYING} className="hover:text-gray-300 transition-colors duration-300">NOW PLAYING</Link>
@@ -34,6 +47,14 @@ const Header: React.FC = () => {
           <li>
             <Link to={ROUTES.FAVORITES} className="hover:text-gray-300 transition-colors duration-300">MY FAVORITES</Link>
           </li>
+          <li>
+                <button
+                  onClick={handleLogout}
+                  className="block font-semibold text-[13px] text-gray-500"
+                >
+                  Logout
+                </button>
+              </li>
 
         </ul>
       </div>

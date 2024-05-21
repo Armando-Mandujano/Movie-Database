@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { getPopularMovies, getTopRatedMovies, getNowPlayingMovies } from '../../services';
 import Carousel from '../../components/Carousel/Carousel'
+import { useAppContext } from '../../store/app-context/app-context';
 
 const Home: React.FC = () => {
   const [popularMovies, setPopularMovies] = useState<any>([]);
   const [topRatedMovies, setTopRatedMovies] = useState<any>([]);
   const [nowPlayingMovies, setNowPlayingMovies] = useState<any>([]);
+  const { user, setUser, logOut } = useAppContext();
+  console.log(user);
 
   const getPopular = async () => {
     await getPopularMovies()
@@ -51,6 +54,19 @@ const Home: React.FC = () => {
     getPopular();
     getNowPlaying();
     getTopRated();
+  
+    if (typeof user === "undefined"){
+      const localUser = localStorage.getItem("user");
+
+      if(localUser){
+        setUser(JSON.parse(localUser));
+    }
+            // Log out after 5 seconds of inactivity
+            setTimeout(() => {
+              logOut();
+          }, 5000)
+      }
+
   }, []);
 
   return (

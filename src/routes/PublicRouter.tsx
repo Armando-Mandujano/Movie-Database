@@ -1,12 +1,19 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
-import { Header } from "../stories/Header";
+import { useAppContext } from "../store/app-context/app-context";
+
 const PublicRouter = () => {
-    return (
-        <div>
-            <div>Public Router</div>
-            <Outlet/>
-        </div>
-    )
-}
+  const { loadingContext } = useAppContext();
+  return (
+    <div>
+      {loadingContext ? (
+        <h1>Loading...</h1>
+      ) : (
+        <>
+          <div>Public</div>
+          <Outlet />
+        </>
+      )}
+    </div>
+  );
+};
 export default PublicRouter;
