@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# Cartelera de Películas en React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descripción del Proyecto
+Este proyecto es una aplicación web desarrollada con React que muestra una cartelera de películas utilizando Tailwind CSS. La aplicación permite a los usuarios explorar películas populares, ver detalles como sinopsis, calificaciones, y más. Es ideal para cinéfilos que desean mantenerse al día con los últimos estrenos o descubrir nuevos títulos.
 
-## Available Scripts
+## Características
+- **Visualización de películas populares**: Muestra una lista de las películas más actuales y populares.
+- **Detalles de películas**: Al hacer clic en una película, los usuarios pueden ver información detallada como la sinopsis, el elenco, la calificación de usuarios, y más.
+- **Diseño Responsivo**: Adecuado para dispositivos móviles y de escritorio, gracias a Tailwind CSS.
 
-In the project directory, you can run:
+## Tecnologías Utilizadas
+- **React**: Utilizado para construir la interfaz de usuario.
+- **Tailwind CSS**: Para el diseño responsivo y estilización personalizada.
+- **Movie Database API**: Para obtener datos en tiempo real de películas.
 
-### `npm start`
+## Cómo empezar
+Para poner en marcha este proyecto en tu máquina local, sigue estos pasos:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Clonar el repositorio
+```bash
+git clone https://github.com/Armando-Mandujano/Movie-Database
+```
 
-### `npm test`
+# Ir al directorio del proyecto
+```bash
+cd Movie-Database
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Instalar dependencias
+```bash
+yarn install
+```
 
-### `npm run build`
+## Iniciar el servidor de desarrollo
+```bash
+yarn start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Configuración de la API Key
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Para que la aplicación funcione correctamente, necesitas una clave API de The Movie Database (TMDb). Sigue estos pasos para configurar tu clave API:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Obtención de la API Key
+- 1. Visita [The Movie Database API](https://developer.themoviedb.org/) y regístrate o inicia sesión.
+- 2. Navega a la sección de configuración de tu cuenta y solicita una API key.
+- 3. Completa los detalles requeridos para obtener tu clave API.
 
-### `npm run eject`
+### Configuración de la API Key en el proyecto
+Una vez que tengas tu clave API, necesitarás configurarla en tu entorno de desarrollo local:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 1. Crea un archivo en la raíz de tu proyecto llamado `.env`.
+- 2. Dentro del archivo `.env`, añade la siguiente línea reemplazando `tu_clave_api` con la clave API que obtuviste
+- 3. Guarda los cambios en el archivo `.env`. Este archivo no debe ser subido a tu repositorio Git para evitar exponer tu clave API. Asegúrate de que `.env` está listado en tu `.gitignore`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Al iniciar tu aplicación con `yarn start`, React automáticamente cargará las variables de entorno definidas en el archivo `.env`, permitiendo que tu aplicación acceda a la API de The Movie Database con la clave configurada.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Despliegue en Vercel
 
-## Learn More
+El proyecto está desplegado y accesible públicamente a través de Vercel, lo que permite visualizar la aplicación en acción sin necesidad de configurar el entorno localmente. Puedes visitar la versión desplegada en el siguiente enlace:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Cartelera de Películas - Vercel Deployment](https://movie-database-tan-psi.vercel.app/)
